@@ -53,7 +53,7 @@ void display_as_table(struct node *head)
 	{
 		struct aircraft *tmp = &item->_aircraft;
 
-		printf_s("|%s\t|%s\t\t|%lf\t\t|%lf\t\t|%s\t\t|\n", tmp->name, tmp->type, tmp->takeoff / 1000, tmp->takeoff, tmp->created_in);
+		printf_s("|%s\t|%s\t|%lf\t\t|%lf\t\t|%s\t\t|\n", tmp->name, tmp->type, tmp->takeoff / 1000, tmp->takeoff, tmp->created_in);
 	}
 
 	puts("+-------+---------------+-----------------------+-----------------------+---------------+");
