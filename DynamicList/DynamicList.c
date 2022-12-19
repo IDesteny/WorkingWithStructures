@@ -79,7 +79,7 @@ int main()
 
 		head = push_list(head, &tmp);
 
-		if (counter >= 2 - 1)
+		if (counter >= 5 - 1)
 		{
 			int answer;
 lp:
