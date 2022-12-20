@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <assert.h>
+#include <windows.h>
 
 struct aircraft
 {
@@ -43,20 +44,52 @@ void swap_nodes(struct node *head)
 	memcpy(&head->_aircraft, &tmp, sizeof(struct aircraft));
 }
 
+void set_cursor_position(int x, int y)
+{
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), (COORD) { x, y });
+}
+
+COORD get_cursor_position()
+{
+	CONSOLE_SCREEN_BUFFER_INFO cbsi;
+	GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cbsi);
+	return cbsi.dwCursorPosition;
+}
+
 void display_as_table(struct node *head)
 {
-	puts("+-------+---------------+-----------------------+-----------------------+---------------+");
-	puts("|Name\t|Aircraft type\t|Takeoff(kilometers)\t|Takeoff(meters)\t|Created in\t|");
-	puts("+-------+---------------+-----------------------+-----------------------+---------------+");
+	set_cursor_position(get_cursor_position().X, get_cursor_position().Y);
+
+	puts("+----------+-----------------+---------------------+-------------------+----------------+");
+	puts("|          |                 |                  Takeoff                |                |");
+	puts("|   Name   |  Aircraft type  +---------------------+-------------------+   Created in   |");
+	puts("|          |                 |      kilometers     |      meters       |                |");
+	puts("+----------+-----------------+---------------------+-------------------+----------------+");
 
 	for (struct node *item = head; item; item = item->next)
 	{
 		struct aircraft *tmp = &item->_aircraft;
+		COORD current_pos = get_cursor_position();
 
-		printf_s("|%s\t|%s\t|%lf\t\t|%lf\t\t|%s\t\t|\n", tmp->name, tmp->type, tmp->takeoff / 1000, tmp->takeoff, tmp->created_in);
+		printf("| ");
+		printf("%s", tmp->name);
+		set_cursor_position(current_pos.X + 11, current_pos.Y);
+		printf("| ");
+		printf("%s", tmp->type);
+		set_cursor_position(current_pos.X + 29, current_pos.Y);
+		printf("| ");
+		printf("%lf", tmp->takeoff / 1000);
+		set_cursor_position(current_pos.X + 51, current_pos.Y);
+		printf("| ");
+		printf("%lf", tmp->takeoff);
+		set_cursor_position(current_pos.X + 71, current_pos.Y);
+		printf("| ");
+		printf("%s", tmp->created_in);
+		set_cursor_position(current_pos.X + 88, current_pos.Y);
+		puts("|");
 	}
 
-	puts("+-------+---------------+-----------------------+-----------------------+---------------+");
+	puts("+----------+-----------------+---------------------+-------------------+----------------+");
 }
 
 int main()

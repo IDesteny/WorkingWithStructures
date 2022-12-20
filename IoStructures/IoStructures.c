@@ -76,7 +76,7 @@ int main()
 	puts("|          |                 |      kilometers     |      meters       |                |");
 	puts("+----------+-----------------+---------------------+-------------------+----------------+");
 
-	struct aircraft aircrafts[2] = { 0 };
+	struct aircraft aircrafts[5] = { 0 };
 	int size = sizeof(aircrafts) / sizeof(*aircrafts);
 
 	for (int i = 0; i < size; ++i)
