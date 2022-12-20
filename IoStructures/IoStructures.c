@@ -29,7 +29,9 @@ void show_table(struct aircraft *aircrafts, int size)
 	set_cursor_position(get_cursor_position().X, get_cursor_position().Y);
 
 	puts("+----------+-----------------+---------------------+-------------------+----------------+");
-	puts("|   Name   |  Aircraft type  | Takeoff(kilometers) |  Takeoff(meters)  |   Created in   |");
+	puts("|          |                 |                  Takeoff                |                |");
+	puts("|   Name   |  Aircraft type  +---------------------+-------------------+   Created in   |");
+	puts("|          |                 |      kilometers     |      meters       |                |");
 	puts("+----------+-----------------+---------------------+-------------------+----------------+");
 
 	for (int i = 0; i < size; ++i)
@@ -43,10 +45,10 @@ void show_table(struct aircraft *aircrafts, int size)
 		printf("%s", aircrafts[i].type);
 		set_cursor_position(current_pos.X + 29, current_pos.Y);
 		printf("| ");
-		printf("%lf", aircrafts[i].takeoff_m);
+		printf("%lf", aircrafts[i].takeoff_km);
 		set_cursor_position(current_pos.X + 51, current_pos.Y);
 		printf("| ");
-		printf("%lf", aircrafts[i].takeoff_km);
+		printf("%lf", aircrafts[i].takeoff_m);
 		set_cursor_position(current_pos.X + 71, current_pos.Y);
 		printf("| ");
 		printf("%s", aircrafts[i].created_in);
@@ -69,11 +71,12 @@ void swap_table(struct aircraft *aircrafts, int size)
 int main()
 {
 	puts("+----------+-----------------+---------------------+-------------------+----------------+");
-	puts("|   Name   |  Aircraft type  | Takeoff(kilometers) |  Takeoff(meters)  |   Created in   |");
+	puts("|          |                 |                  Takeoff                |                |");
+	puts("|   Name   |  Aircraft type  +---------------------+-------------------+   Created in   |");
+	puts("|          |                 |      kilometers     |      meters       |                |");
 	puts("+----------+-----------------+---------------------+-------------------+----------------+");
 
-	double takeoff_tmp;
-	struct aircraft aircrafts[5] = { 0 };
+	struct aircraft aircrafts[2] = { 0 };
 	int size = sizeof(aircrafts) / sizeof(*aircrafts);
 
 	for (int i = 0; i < size; ++i)
@@ -85,10 +88,10 @@ int main()
 		scanf_s("%s", aircrafts[i].type, (unsigned int)sizeof(aircrafts[i].type));
 		set_cursor_position(get_cursor_position().X + 29, get_cursor_position().Y - 1);
 		printf("| ");
-		scanf_s("%lf", &aircrafts[i].takeoff_m);
+		scanf_s("%lf", &aircrafts[i].takeoff_km);
 		set_cursor_position(get_cursor_position().X + 51, get_cursor_position().Y - 1);
 		printf("| ");
-		scanf_s("%lf", &aircrafts[i].takeoff_km);
+		scanf_s("%lf", &aircrafts[i].takeoff_m);
 		set_cursor_position(get_cursor_position().X + 71, get_cursor_position().Y - 1);
 		printf("| ");
 		scanf_s("%s", aircrafts[i].created_in, (unsigned int)sizeof(aircrafts[i].created_in));
